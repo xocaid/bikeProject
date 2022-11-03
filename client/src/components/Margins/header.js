@@ -1,7 +1,8 @@
+import "./margins.css";
 const Header = () => {
 
   return (
-    <div className='headers'>
+    <div className="header-component">
       This is the header.
     </div>
   )

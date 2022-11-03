@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 })
 /**************************** GET Request  ******************************************/
 //FAVORITES TABLE
+//change the get path
 
 app.get("/", async (req, res) => {
   try {
@@ -43,6 +44,7 @@ app.get("/", async (req, res) => {
   }
 });
 //USERS TABLE
+//change the get path
 
 app.get("/", async (req, res) => {
   try {
@@ -65,4 +67,4 @@ app.get("/", async (req, res) => {
     return res.status(400).json({ e });
   }
 });
-app.listen(PORT, () => console.log(`Hola! Server id running on port ${PORT}.`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}.`));
