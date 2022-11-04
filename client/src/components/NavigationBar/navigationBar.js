@@ -1,4 +1,5 @@
 import React from "react";
+import "./navigationBar.css"
 import { Link } from "react-router-dom";
 
 const NavigationBar = () => {
@@ -7,7 +8,6 @@ const NavigationBar = () => {
   return (
     <>
       <div className="linkRoutes">
-
         <Link to="/home"> Home</Link>
 
         <Link to="/favorites"> Favorites</Link>
@@ -15,7 +15,6 @@ const NavigationBar = () => {
         <Link to="/login"> Login</Link>
 
         <Link to="/account"> Account</Link>
-
       </div>
     </>
   )

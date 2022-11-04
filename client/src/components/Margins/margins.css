@@ -1,11 +1,17 @@
 /************* HEADER ***************/
 .header-component{
-  color: blue;
-  background-color: pink;
+  color: #ffc400;
+  background-color: #193232;
+  padding: 2rem;
 }
 
 /************* FOOTER ***************/
 .footer-component{
-  color: yellow;
-  background-color: black;
+  color: #ffc400;
+  background-color: #728049;
+  position: fixed;
+  bottom: 0;
+  padding:.5rem;
+  width: 100%;
+  font-weight: bolder;
 }
