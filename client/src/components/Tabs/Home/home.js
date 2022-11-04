@@ -1,7 +1,7 @@
 import "./home.css";
 import React, { useCallback, useState } from 'react';
 
-import { GoogleMap, useJsApiLoader, MarkerF, BicyclingLayer } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, MarkerF, BicyclingLayer, Autocomplete } from '@react-google-maps/api';
 
 //Map Containter Size
 const containerStyle = {
@@ -21,6 +21,7 @@ const Home = () => {
   const { isLoaded } = useJsApiLoader({
     // id: 'google-map-script',
     googleMapsApiKey: '',
+    libraries: ['places'],
   })
 
   //Bicycling Layer
@@ -28,38 +29,61 @@ const Home = () => {
     console.log('bicyclingLayer: ', bicyclingLayer)
   }
 
-  const onUnmount = useCallback((map) => {
-    setMap(null)
-  }, []);
+  // const onUnmount = useCallback((map) => {
+  //   setMap(null)
+  // }, []);
 
   //CATCH
   if (!isLoaded) {
     return <div>Loading...</div>
   } else {
     return (
-      <div className="home-component">
+      <div className="home">
         <h1>This is the Home page.</h1>
         <div className="map-container">
+
+          <div className="search-bar-map">
+            <Autocomplete>
+              <form>
+                <input
+                  id='autocomplete-start'
+                  placeholder='Start Location'
+                  type='text'
+                />
+                <input
+                  id='autocomplete-end'
+                  placeholder='End Location'
+                  type='text'
+                />
+                <button className="map-distance-btn" type="submit">Calculate Route</button>
+              </form>
+            </Autocomplete>
+          </div>
+
           <div className='home-map'>
-
-
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={center}
               zoom={12}
-              onUnmount={onUnmount}
+              options={{
+                streetViewControl: false,
+                fullscreenControl: false,
+                mapTypeControl: false,
+                mapTypeId: 'terrain'
 
+              }}
+            // onUnmount={onUnmount}
             >
               <BicyclingLayer
-                onLoad={onLoad} />
-
+                onLoad={onLoad} 
+                />
               <MarkerF
                 position={center}
               />
             </GoogleMap>
-
             <button className="map-button">Like</button>
           </div>
+
         </div>
       </div>
     )
