@@ -2,7 +2,7 @@
 .header-component{
   color: #ffc400;
   background-color: #193232;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 /************* FOOTER ***************/
@@ -11,7 +11,7 @@
   background-color: #728049;
   position: fixed;
   bottom: 0;
-  padding:.5rem;
   width: 100%;
-  font-weight: bolder;
+  font-weight: bold;
+  font-size: 10px;
 }

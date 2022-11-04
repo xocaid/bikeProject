@@ -2,7 +2,7 @@ const Footer = () => {
 
   return (
     <div className="footer-component">
-      This is the footer.
+      <p> Copyright &copy; 2022 Bike Map Project Inc. All Right Reserved.</p>
     </div>
   )
 }

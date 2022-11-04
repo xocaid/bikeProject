@@ -3,7 +3,7 @@ const Header = () => {
 
   return (
     <div className="header-component">
-      This is the header.
+      <h1>Bike Map Project</h1>
     </div>
   )
 }
