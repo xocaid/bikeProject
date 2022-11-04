@@ -1,0 +1,24 @@
+.map-container{
+  background-color: #728049;
+  margin: 40px;
+  padding: 15px;
+  position:sticky;
+}
+.home-map{
+  margin: 30px;
+}
+.map-button{
+  background-color: #D4C964; 
+  border: none;
+  border-radius: 8px;
+  color: #193232;
+  font-weight: bold;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+
+}

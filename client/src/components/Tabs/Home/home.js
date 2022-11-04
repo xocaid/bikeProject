@@ -1,11 +1,12 @@
-import React, { useState} from 'react';
+import "./home.css";
+import React, { useCallback, useState } from 'react';
 
-import { GoogleMap, useJsApiLoader, MarkerF } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, MarkerF, BicyclingLayer } from '@react-google-maps/api';
 
 //Map Containter Size
 const containerStyle = {
-  width: '500px',
-  height: '500px'
+  width: '100%',
+  height: '550px'
 };
 
 //Default Location for Map: Los Angeles, CA
@@ -15,45 +16,53 @@ const center = {
 };
 
 const Home = () => {
+  const [map, setMap] = useState(/* @type google.maps.Map */(null));
 
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
+    // id: 'google-map-script',
     googleMapsApiKey: '',
-  });
+  })
 
-// if(!isLoaded) return <div>Loading...</div>
+  //Bicycling Layer
+  const onLoad = bicyclingLayer => {
+    console.log('bicyclingLayer: ', bicyclingLayer)
+  }
 
-  const [map, setMap] = useState(/* @type google.maps.Map */null);
-
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map) {
+  const onUnmount = useCallback((map) => {
     setMap(null)
-  }, [])
+  }, []);
 
-  return (
-    <div className="home-component">
-      <div className='home-map'>
+  //CATCH
+  if (!isLoaded) {
+    return <div>Loading...</div>
+  } else {
+    return (
+      <div className="home-component">
         <h1>This is the Home page.</h1>
+        <div className="map-container">
+          <div className='home-map'>
 
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-          onLoad={onLoad}
-          onUnmount={onUnmount}
-        >
-        <MarkerF 
-        position={center}
-        />
-        </GoogleMap>
+
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={center}
+              zoom={12}
+              onUnmount={onUnmount}
+
+            >
+              <BicyclingLayer
+                onLoad={onLoad} />
+
+              <MarkerF
+                position={center}
+              />
+            </GoogleMap>
+
+            <button className="map-button">Like</button>
+          </div>
+        </div>
       </div>
-      <button>Like</button>
-    </div>
-  )
+    )
+  }
 };
 export default Home;
