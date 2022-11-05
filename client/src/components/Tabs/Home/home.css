@@ -22,3 +22,17 @@
   cursor: pointer;
 
 }
+
+/************************ FORM ****************************/
+form{
+  padding-left: 30px;
+}
+
+.autocomplete-input[type=text]{
+width: 450px;
+padding: 13px 15px;
+margin: 8px 0;
+border:none;
+border-radius: 8px;
+
+}
