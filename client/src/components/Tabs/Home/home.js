@@ -1,5 +1,5 @@
 import "./home.css";
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { GoogleMap, useJsApiLoader, MarkerF, BicyclingLayer, Autocomplete, DirectionsRenderer, DirectionsService } from '@react-google-maps/api';
 
@@ -19,14 +19,18 @@ const Home = () => {
 
   const [map, setMap] = useState( /** @type google.maps.Map */(null));
   const [directionsResponse, setDirectionsResponse] = useState(null);
+  //For DirectionsService
   const [originPlace, setOriginPlace] = useState(null)
   const [destinationPlace, setDestinationPlace] = useState(null)
   // const [distance, setDistance] = useState('');
   // const [duration, setDuration] = useState('');
 
+  //Autocomplete - as per documentation
   const originAutocompleteRef = useRef(null)
   const destinationAutocompleteRef = useRef(null)
 
+  //directionsCallback: Required as per documentation
+  //Assoc. with Directions Service
   function directionsCallback(response) {
     if (response !== null) {
       if (response.status === 'OK') {
@@ -38,7 +42,6 @@ const Home = () => {
   }
 
   const { isLoaded } = useJsApiLoader({
-    // id: 'google-map-script',
     googleMapsApiKey: '',
     libraries: ['places'],
   })
@@ -48,15 +51,17 @@ const Home = () => {
     console.log('bicyclingLayer: ', bicyclingLayer)
   }
 
-  const calculateDistance = (e) => {
+  //onClick Event to Display Route on Map
+  //getPlace(): Place interface contains info to locate, identify/describe a place for DirectionsRequest/DistanceMatrixRequest
+  //geometry - api library; allows us to access the latlng within location as it may be an object
+  //Place means business, point of interest, or geographic location
+  //origin/destinationPlace is taking in the value input in the search bars.
+  // ?. - chaining operator, checks if value is null/undefined
+  const calculateRoute = (e) => {
     e.preventDefault()
     setOriginPlace(originAutocompleteRef.current?.getPlace()?.geometry?.location)
     setDestinationPlace(destinationAutocompleteRef.current?.getPlace()?.geometry?.location)
   }
-
-  // const onUnmount = useCallback((map) => {
-  //   setMap(null)
-  // }, []);
 
   //CATCH
   if (!isLoaded) {
@@ -90,11 +95,14 @@ const Home = () => {
                 />
               </Autocomplete>
 
-              <button className="map-distance-btn" type='submit' onClick={calculateDistance}>Calculate Route</button>
+              <button className="map-distance-btn" type='submit' onClick={calculateRoute}>Calculate Distance</button>
               <button onClick={() => map.panTo(center)}>Return to Original Marker</button>
               <button >Clear</button>
             </form>
-
+          <div>
+            <p>Distance: </p>
+            <p>Duration: </p>
+          </div>
           </div>
 
           <div className='home-map'>
@@ -109,22 +117,25 @@ const Home = () => {
                 mapTypeControl: false,
                 mapTypeId: 'terrain'
               }}
-              onLoad={map => setMap(map)}
-            // onUnmount={onUnmount}
-            >
+              onLoad={map => setMap(map)}>
+
+              {/*DIRECTIONS SERVICE: Calculates directions, receives directions request, returns EFFICIENT path, travel time optimized.; NEEDED TO WORK WITH DIRECTIONS RENDERER*/}
+              {/*As per documentation. Options & callback are required. originPlace & destinationPlace are needed to identify location for directions request. */}
               {
                 (originPlace !== null && destinationPlace !== null)
                 && (<DirectionsService
                   options={{
                     destination: destinationPlace,
                     origin: originPlace,
-                    travelMode: 'BICYCLING'
+                    travelMode: 'BICYCLING',
                   }}
                   callback={directionsCallback}
                 >
                 </DirectionsService>)
               }
 
+              {/*DIRECTIONS RENDERER: Renders directions obtained from DirectionsService; NEEDED TO WORK WITH DIRECTIONS SERVICE*/}
+              {/*As per documentation. Options required.*/}
               {
                 (directionsResponse !== null && (
                   <DirectionsRenderer
@@ -141,8 +152,6 @@ const Home = () => {
               <MarkerF
                 position={center}
               />
-              {/* {directionsResponse && (<DirectionsRenderer 
-              direction={directionsResponse}/>)} */}
             </GoogleMap>
             <button className="map-button">Like</button>
           </div>
