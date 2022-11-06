@@ -66,6 +66,7 @@ const Home = () => {
     setDestinationPlace(destinationAutocompleteRef.current?.getPlace()?.geometry?.location)
   }
 
+
   //CATCH
   if (!isLoaded) {
     return <div>Loading...</div>
@@ -98,9 +99,9 @@ const Home = () => {
                 />
               </Autocomplete>
 
-              <button className="map-distance-btn" type='submit' onClick={calculateRoute}>Calculate Distance</button>
-              <button onClick={() => map.panTo(center)}>Return to Original Marker</button>
-              <button >Clear</button>
+              <button className="search-bar-btn" onClick={calculateRoute} type='submit' >Map My Route</button>
+              <button className="search-bar-btn" onClick={() => map.panTo(center)}>Reset</button>
+              <button className="search-bar-btn" >Clear</button>
             </form>
             <div>
               <h2>Distance: {distance}</h2> 

@@ -1,18 +1,21 @@
-.map-container{
-  background-color: #728049;
+.map-container {
+  background-color: rgb(114, 128, 73, .7);
   /* background: rgb(25,50,50);
   background: radial-gradient(circle, rgba(25,50,50,1) 0%, rgba(25,50,50,1) 0%, rgba(44,67,55,1) 85%, rgba(114,128,73,1) 100%); */
   margin: 40px;
   padding: 15px;
-  position:sticky;
+  padding-bottom: 5px;
+  position: sticky;
   border-radius: 8px;
 }
-.home-map{
-  margin: 30px;
+
+.home-map {
+  margin: 25px;
 }
-.map-button{
-  background-color: #D4C964; 
-  border: none;
+
+.map-button {
+  background-color: #D4C964;
+  border: 2px solid #ffc400;
   border-radius: 8px;
   color: #193232;
   font-weight: bold;
@@ -20,22 +23,58 @@
   text-align: center;
   text-decoration: none;
   /* display: inline-block; */
-  font-size: 16px;
-  margin: 4px 2px;
+  font-size: 18px;
+  margin: 10px 2px;
   cursor: pointer;
 
 }
 
 /************************ FORM ****************************/
-form{
+form {
   padding-left: 30px;
 }
 
-.autocomplete-input[type=text]{
-width: 450px;
-padding: 13px 15px;
-margin: 8px 0;
-border:none;
-border-radius: 8px;
+.autocomplete-input[type=text] {
+  width: 450px;
+  padding: 13px 15px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
 
+}
+
+/************************ H2 Distance & Duration Display ************************/
+h2 {
+  display: inline-block;
+  padding: 20px;
+}
+
+h2:active {
+  display: inline-block;
+  padding: 20px;
+}
+
+.search-bar-btn {
+  background-color: #D4C964;
+  border: 2px solid #ffc400;
+  border-radius: 8px;
+  color: #193232;
+  font-weight: bold;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 18px;
+  margin: 10px 5px;
+  cursor: pointer;
+}
+
+/************************ Input Box ************************/
+::placeholder{ 
+  color: #193232;
+  font-weight: bold;
+}
+textarea:focus, input:focus {
+  color: #193232;
+  font-weight: bold;
 }
