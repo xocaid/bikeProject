@@ -22,8 +22,9 @@ const Home = () => {
   //For DirectionsService
   const [originPlace, setOriginPlace] = useState(null)
   const [destinationPlace, setDestinationPlace] = useState(null)
-  // const [distance, setDistance] = useState('');
-  // const [duration, setDuration] = useState('');
+  //To Display Bike Route Distance & Duration 
+  const [distance, setDistance] = useState('');
+  const [duration, setDuration] = useState('');
 
   //Autocomplete - as per documentation
   const originAutocompleteRef = useRef(null)
@@ -35,6 +36,8 @@ const Home = () => {
     if (response !== null) {
       if (response.status === 'OK') {
         setDirectionsResponse(response)
+        setDistance(response.routes[0].legs[0].distance.text)
+        setDuration(response.routes[0].legs[0].duration.text)
       } else {
         setDirectionsResponse(null)
       }
@@ -42,7 +45,7 @@ const Home = () => {
   }
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: '',
+    googleMapsApiKey: process.env.REACT_APP_API_KEY,
     libraries: ['places'],
   })
 
@@ -99,10 +102,10 @@ const Home = () => {
               <button onClick={() => map.panTo(center)}>Return to Original Marker</button>
               <button >Clear</button>
             </form>
-          <div>
-            <p>Distance: </p>
-            <p>Duration: </p>
-          </div>
+            <div>
+              <h2>Distance: {distance}</h2> 
+              <h2>Duration: {duration}</h2>
+            </div>
           </div>
 
           <div className='home-map'>

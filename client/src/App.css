@@ -19,7 +19,9 @@
   color: white;
 }
  */
-body{
-  background-color: #193232;
+body {
+  /* background-color: #193232; */
+  background: rgb(25, 50, 50);
+  background: linear-gradient(174deg, rgba(25, 50, 50, 1) 0%, rgba(25, 50, 50, 1) 0%, rgba(44, 67, 55, 1) 37%);
   color: #ffc400;
 }
