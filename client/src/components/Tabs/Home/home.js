@@ -18,20 +18,24 @@ const center = {
 const Home = () => {
 
   const [map, setMap] = useState( /** @type google.maps.Map */(null));
+  //For DirectionsRenderer: Displays the Route 
   const [directionsResponse, setDirectionsResponse] = useState(null);
-  //For DirectionsService
+  //For DirectionsService: Takes Start & End Locations
   const [originPlace, setOriginPlace] = useState(null)
   const [destinationPlace, setDestinationPlace] = useState(null)
-  //To Display Bike Route Distance & Duration 
+  //To Display Bike Route Distance & Duration (Directions API)
   const [distance, setDistance] = useState('');
   const [duration, setDuration] = useState('');
 
-  //Autocomplete - as per documentation
+  //Autocomplete (as per documentation) - for the originPlace/destinationPlace
+  //Places API
   const originAutocompleteRef = useRef(null)
   const destinationAutocompleteRef = useRef(null)
 
-  //directionsCallback: Required as per documentation
-  //Assoc. with Directions Service
+  //directionsCallback: Required as per DirectionsService documentation
+  //Directions API
+  //https://maps.googleapis.com/maps/api/directions/json?mode=bicycling&origin=Disneyland&destination=Universal+Studios+Hollywood&key=KEY
+  //setDistance & setDuration are getting the data from Directions API and returned in a JSON format
   function directionsCallback(response) {
     if (response !== null) {
       if (response.status === 'OK') {
@@ -43,7 +47,7 @@ const Home = () => {
       }
     }
   }
-
+  //Required to access Maps API and Places API/Library
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
     libraries: ['places'],
@@ -54,9 +58,9 @@ const Home = () => {
     console.log('bicyclingLayer: ', bicyclingLayer)
   }
 
-  //onClick Event to Display Route on Map
+  //onClick to Submit Info & Display Route on Map
   //getPlace(): Place interface contains info to locate, identify/describe a place for DirectionsRequest/DistanceMatrixRequest
-  //geometry - api library; allows us to access the latlng within location as it may be an object
+  //geometry - api library; allows us to access the latlng
   //Place means business, point of interest, or geographic location
   //origin/destinationPlace is taking in the value input in the search bars.
   // ?. - chaining operator, checks if value is null/undefined
@@ -98,13 +102,12 @@ const Home = () => {
                   type='text'
                 />
               </Autocomplete>
-
+              {/********************************* BUTTONS *********************************/}
               <button className="search-bar-btn" onClick={calculateRoute} type='submit' >Map My Route</button>
               <button className="search-bar-btn" onClick={() => map.panTo(center)}>Reset</button>
-              <button className="search-bar-btn" >Clear</button>
             </form>
-            <div>
-              <h2>Distance: {distance}</h2> 
+            <div className="distance-duration-finaldisplay">
+              <h2>Distance: {distance}</h2>
               <h2>Duration: {duration}</h2>
             </div>
           </div>
@@ -124,7 +127,7 @@ const Home = () => {
               onLoad={map => setMap(map)}>
 
               {/*DIRECTIONS SERVICE: Calculates directions, receives directions request, returns EFFICIENT path, travel time optimized.; NEEDED TO WORK WITH DIRECTIONS RENDERER*/}
-              {/*As per documentation. Options & callback are required. originPlace & destinationPlace are needed to identify location for directions request. */}
+              {/*Per documentation. Options & callback are required. originPlace & destinationPlace are needed to identify location for directions request. */}
               {
                 (originPlace !== null && destinationPlace !== null)
                 && (<DirectionsService
@@ -139,7 +142,7 @@ const Home = () => {
               }
 
               {/*DIRECTIONS RENDERER: Renders directions obtained from DirectionsService; NEEDED TO WORK WITH DIRECTIONS SERVICE*/}
-              {/*As per documentation. Options required.*/}
+              {/*Per documentation. Options required.*/}
               {
                 (directionsResponse !== null && (
                   <DirectionsRenderer
