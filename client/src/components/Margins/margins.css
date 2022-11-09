@@ -1,0 +1,17 @@
+/************* HEADER ***************/
+.header-component{
+  color: #ffc400;
+  background-color: #193232;
+  padding: 1rem;
+}
+
+/************* FOOTER ***************/
+.footer-component{
+  color: #ffc400;
+  background-color: #728049;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-weight: bold;
+  font-size: 10px;
+}

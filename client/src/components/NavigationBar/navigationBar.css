@@ -1,0 +1,23 @@
+.linkRoutes{
+  background-color: #728049;
+  width: 100%;
+  display: inline-block;
+  padding: 1rem 1 rem;
+  color: #ffc400;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 25px;
+}
+a:link{
+  padding: 14px 55px;
+  text-decoration: none;
+  display: inline-block;
+}
+a:visited{
+  text-decoration: none;
+  color:#ffc400;
+}
+a:hover{
+  background-color: #ffc400;
+  color:#193232;
+}
